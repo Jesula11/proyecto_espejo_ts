@@ -30,3 +30,7 @@ let tareas: Tarea[] = [
         completada: false
     }
 ];
+
+type Filtro = 'Todas' | 'Pendientes' | 'Completadas';
+
+let filtroActual: Filtro = 'Todas';
