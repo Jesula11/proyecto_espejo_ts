@@ -44,3 +44,18 @@ const selectPrioridad = document.querySelector<HTMLSelectElement>('#select-prior
 const listaContenedor = document.querySelector<HTMLUListElement>('#lista-tareas')!;
 const loadingState = document.querySelector<HTMLDivElement>('#loading-state')!;
 const botonesFiltro = document.querySelectorAll<HTMLButtonElement>('.btn-filtro');
+
+// Inicializar la aplicación
+async function inicializarApp(): Promise<void> {
+
+    // Simular una espera de 1,5 segundos
+    await new Promise<void>(resolve => {
+        setTimeout(resolve, 1500);
+    });
+
+    // Ocultar el mensaje de carga
+    loadingState.style.display = 'none';
+
+    // Mostrar las tareas
+    pintarTareas();
+}
