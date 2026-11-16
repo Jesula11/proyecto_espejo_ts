@@ -66,4 +66,18 @@ function pintarTareas(): void {
     // Limpiar el contenedor de tareas
     listaContenedor.innerHTML = '';
 
+    // Filtrar las tareas según el filtro actual
+    const tareasFiltradas: Tarea[] = tareas.filter((tarea: Tarea) => {
+
+        if (filtroActual === 'Pendientes') {
+            return !tarea.completada;
+        }
+
+        if (filtroActual === 'Completadas') {
+            return tarea.completada;
+        }
+
+        return true;
+    });
+
 }
