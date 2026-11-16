@@ -59,3 +59,11 @@ async function inicializarApp(): Promise<void> {
     // Mostrar las tareas
     pintarTareas();
 }
+
+// Mostrar las tareas en el HTML
+function pintarTareas(): void {
+
+    // Limpiar el contenedor de tareas
+    listaContenedor.innerHTML = '';
+
+}
