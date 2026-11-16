@@ -81,3 +81,19 @@ function pintarTareas(): void {
     });
 
 }
+
+// Recorrer las tareas filtradas
+tareasFiltradas.forEach((tarea: Tarea) => {
+
+    // Crear un elemento <li>
+    const li = document.createElement('li');
+
+    // Añadir las clases CSS según la tarea
+    li.classList.add('item-tarea', tarea.prioridad);
+
+    // Si la tarea está completada, añadir la clase correspondiente
+    if (tarea.completada) {
+        li.classList.add('completada');
+    }
+
+});
