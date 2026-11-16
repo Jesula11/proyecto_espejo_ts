@@ -96,4 +96,12 @@ tareasFiltradas.forEach((tarea: Tarea) => {
         li.classList.add('completada');
     }
 
+    // Crear el botón para cambiar el estado de la tarea
+    const botonEstado = document.createElement('button');
+
+    // Cambiar el texto del botón según el estado de la tarea
+    botonEstado.textContent = tarea.completada
+    ? 'Marcar pendiente'
+    : 'Completar';
+
 });
