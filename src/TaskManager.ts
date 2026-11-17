@@ -1,11 +1,13 @@
-interface Tarea {
+export type Prioridad = 'Alta' | 'Media' | 'Baja';
+
+export interface Tarea {
     id: number;
     titulo: string;
     prioridad: Prioridad;
     completada: boolean;
 }
 
-type Prioridad = 'Alta' | 'Media' | 'Baja';
+export type Filtro = 'Todas' | 'Pendientes' | 'Completadas';
 
 export class TaskManager {
 
