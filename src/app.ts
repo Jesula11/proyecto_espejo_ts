@@ -104,4 +104,22 @@ tareasFiltradas.forEach((tarea: Tarea) => {
     ? 'Marcar pendiente'
     : 'Completar';
 
+    // Escuchar el clic del botón
+    botonEstado.addEventListener('click', () => {
+
+        // Actualizar el estado de la tarea
+        tareas = tareas.map((t: Tarea) => {
+            if (t.id === tarea.id) {
+                return {
+                    ...t,
+                    completada: !t.completada
+                };
+            }
+
+            return t;
+    });
+
+    // Volver a mostrar las tareas actualizadas
+    pintarTareas();
+
 });
