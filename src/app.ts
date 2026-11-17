@@ -86,4 +86,31 @@ async function inicializarApp(): Promise<void> {
     pintarTareas();
 }
 
+// Evento para añadir nuevas tareas
+formulario.addEventListener('submit', (evento: SubmitEvent) => {
+    evento.preventDefault();
 
+    const titulo = inputTitulo.value.trim();
+    const prioridad = selectPrioridad.value as Prioridad;
+
+    if (titulo === '') {
+        return;
+    }
+
+    // Delegamos la creación de la tarea a TaskManager
+    gestor.agregarTarea(titulo, prioridad);
+
+    pintarTareas();
+    formulario.reset();
+});
+
+// Eventos de los botones de filtrado
+botonesFiltro.forEach((boton: HTMLButtonElement) => {
+    boton.addEventListener('click', () => {
+        filtroActual = boton.dataset.filtro as Filtro;
+        pintarTareas();
+    });
+});
+
+// Iniciamos la aplicación
+inicializarApp();
