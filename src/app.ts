@@ -76,3 +76,14 @@ function pintarTareas(): void {
     });
 }
 
+// Simulamos la carga inicial de la aplicación
+async function inicializarApp(): Promise<void> {
+    await new Promise<void>((resolve) => {
+        setTimeout(resolve, 1500);
+    });
+
+    loadingState.style.display = 'none';
+    pintarTareas();
+}
+
+
