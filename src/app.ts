@@ -1,7 +1,7 @@
+import { TaskManager } from './TaskManager';
+import type { Tarea, Prioridad, Filtro } from './TaskManager';
 
-// Tipos de filtros disponibles
-type Filtro = 'Todas' | 'Pendientes' | 'Completadas';
-
+const gestor = new TaskManager();
 // Filtro seleccionado actualmente
 let filtroActual: Filtro = 'Todas';
 
@@ -35,59 +35,44 @@ function pintarTareas(): void {
     listaContenedor.innerHTML = '';
 
     // Filtrar las tareas según el filtro actual
-    const tareasFiltradas: Tarea[] = tareas.filter((tarea: Tarea) => {
+    const tareasFiltradas: Tarea[] = gestor.filtrarTareas(filtroActual);
 
-        if (filtroActual === 'Pendientes') {
-            return !tarea.completada;
+    // Recorrer las tareas filtradas
+    tareasFiltradas.forEach((tarea: Tarea) => {
+
+        const li = document.createElement('li');
+
+        li.classList.add('item-tarea', tarea.prioridad);
+
+        if (tarea.completada) {
+            li.classList.add('completada');
         }
 
-        if (filtroActual === 'Completadas') {
-            return tarea.completada;
-        }
+        // Crear el botón para cambiar el estado de la tarea
+        const botonEstado = document.createElement('button');
+        botonEstado.textContent = tarea.completada
+        ? 'Marcar pendiente'
+        : 'Completar';
 
-        return true;
-    });
 
-}
+        botonEstado.addEventListener('click', () => {
+            gestor.cambiarEstado(tarea.id);
+            pintarTareas();
+        });
+        // Creamos el título de la tarea
+            const titulo = document.createElement('span');
+            titulo.textContent = tarea.titulo;
 
-// Recorrer las tareas filtradas
-tareasFiltradas.forEach((tarea: Tarea) => {
-
-    // Crear un elemento <li>
-    const li = document.createElement('li');
-
-    // Añadir las clases CSS según la tarea
-    li.classList.add('item-tarea', tarea.prioridad);
-
-    // Si la tarea está completada, añadir la clase correspondiente
-    if (tarea.completada) {
-        li.classList.add('completada');
-    }
-
-    // Crear el botón para cambiar el estado de la tarea
-    const botonEstado = document.createElement('button');
-
-    // Cambiar el texto del botón según el estado de la tarea
-    botonEstado.textContent = tarea.completada
-    ? 'Marcar pendiente'
-    : 'Completar';
-
-    // Escuchar el clic del botón
-    botonEstado.addEventListener('click', () => {
-
-        // Actualizar el estado de la tarea
-        tareas = tareas.map((t: Tarea) => {
-            if (t.id === tarea.id) {
-                return {
-                    ...t,
-                    completada: !t.completada
-                };
+            if (tarea.completada) {
+                titulo.classList.add('completada');
             }
 
-            return t;
+            li.appendChild(titulo);
+            li.appendChild(botonEstado);
+
+            // Añadimos la tarea a la lista HTML
+            listaContenedor.appendChild(li);
+
     });
+}
 
-    // Volver a mostrar las tareas actualizadas
-    pintarTareas();
-
-});
