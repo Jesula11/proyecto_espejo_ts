@@ -53,4 +53,38 @@ export class TaskManager {
         this.tareas = [...this.tareas, nuevaTarea];
     }
 
+    // Cambiar el estado de una tarea
+    public cambiarEstado(id: number): void {
+
+        this.tareas = this.tareas.map((tarea: Tarea) => {
+
+            if (tarea.id === id) {
+                return {
+                    ...tarea,
+                    completada: !tarea.completada
+                };
+            }
+
+            return tarea;
+        });
+    }
+
+    // Filtrar las tareas según su estado
+    public filtrarTareas(filtro: Filtro): Tarea[] {
+
+        if (filtro === 'Pendientes') {
+            return this.tareas.filter((tarea: Tarea) => {
+                return !tarea.completada;
+            });
+        }
+
+        if (filtro === 'Completadas') {
+            return this.tareas.filter((tarea: Tarea) => {
+                return tarea.completada;
+            });
+        }
+
+        return this.obtenerTareas();
+    }
+
 }
